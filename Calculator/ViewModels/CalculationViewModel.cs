@@ -1,4 +1,5 @@
 ﻿using Prism.Commands;
+using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
 using System.Collections.ObjectModel;
@@ -8,10 +9,8 @@ using System.Threading.Tasks;
 
 namespace Calculator.ViewModels
 {
-    public class CalculationViewModel
+    public class CalculationViewModel : BindableBase
     {
-        private ObservableCollection<string> aa = new ObservableCollection<string>();
-
         public DelegateCommand LoadedCommand { get; private set; }
 
         public CalculationViewModel()
@@ -22,12 +21,7 @@ namespace Calculator.ViewModels
 
         public void Initaa()
         {
-            aa.Add("1");
-            aa.Add("1");
-            aa.Add("1");
-            aa.Add("1");
-            aa.Add("1");
-            aa.Add("1");
+
         }
     }
 }

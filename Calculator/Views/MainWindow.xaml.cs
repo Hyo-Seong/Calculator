@@ -27,7 +27,6 @@ namespace Calculator.Views
             
             InitializeComponent();
             this.DataContext = CVm;
-            aaa.DataContext = CVm;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
