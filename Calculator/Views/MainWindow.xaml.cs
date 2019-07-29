@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Calculator.ViewModels;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -20,14 +21,22 @@ namespace Calculator.Views
     /// </summary>
     public partial class MainWindow : Window
     {
+        public CalculationViewModel CVm = new CalculationViewModel();
         public MainWindow()
         {
+            
             InitializeComponent();
+            this.DataContext = CVm;
+            aaa.DataContext = CVm;
         }
 
         private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
         {
             this.DragMove();
+        }
+
+        private void Button_Click(object sender, RoutedEventArgs e)
+        {
         }
     }
 }
