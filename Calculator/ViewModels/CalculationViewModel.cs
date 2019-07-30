@@ -31,19 +31,18 @@ namespace Calculator.ViewModels
             }
         }
 
-        private List<string> _operatorList = new List<string>();
-        private List<decimal> _numbers = new List<decimal>();
+        private Calculation _calculation = new Calculation();
 
-        private string _expression = string.Empty;
-        public string Expression
+        private string _description = string.Empty;
+        public string Description
         {
             get
             {
-                return _expression;     
+                return _description;     
             }
             set
             {
-                SetProperty(ref _expression, value);
+                SetProperty(ref _description, value);
             }
         }
 
@@ -70,35 +69,38 @@ namespace Calculator.ViewModels
         public DelegateCommand<string> ClickBtnCommand { get; private set; }
 
         #endregion
+        
         public CalculationViewModel()
         {
-            ClickBtnCommand = new DelegateCommand<string>(Initaa);
+            ClickBtnCommand = new DelegateCommand<string>(BtnClick);
         }
 
-        public void Initaa(string content)
+        public void BtnClick(string content)
         {
+            // 0 ~ 9
             if (content.IsInt())
             {
-                if (_numbers.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
+                if (_calculation.NumberList.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
                 {
-                    _operatorList.Add(_tempOperator);
+                    _calculation.OperatorList.Add(_tempOperator);
                     _tempOperator = string.Empty;
                     Result = ZERO;
                 }
                 Result += content;
-            } 
+            }
+            // + - × ÷
             else if(content.IsOperator()) 
             {
                 if (string.IsNullOrEmpty(_tempOperator))
                 {
-                    _numbers.Add(Decimal.Parse(Result));
+                    _calculation.NumberList.Add(Decimal.Parse(Result));
                 }
                 _tempOperator = content;
             }
             
             switch(content){
                 case "＝":
-                    _numbers.Add(Decimal.Parse(Result));
+                    _calculation.NumberList.Add(Decimal.Parse(Result));
                     Result = Calculate().ToString();
                     //CalItems.Add();
                     break;
@@ -114,8 +116,7 @@ namespace Calculator.ViewModels
                     break;
                 case "C":
                     Result = ZERO;
-                    _numbers = new List<decimal>();
-                    _operatorList = new List<string>();
+                    _calculation = new Calculation();
                     break;
                 case ".":
                     Result += content;
@@ -126,43 +127,43 @@ namespace Calculator.ViewModels
 
         private decimal Calculate()
         {
-            if (_numbers.Count == 1)
+            if (_calculation.NumberList.Count == 1)
             {
-                return _numbers[0];
+                return _calculation.NumberList[0];
             }
             else
             {
                 int count = 0;
-                while (_operatorList.Count > count)
+                while (_calculation.OperatorList.Count > count)
                 {
-                    if (_operatorList[count].Equals("×") || _operatorList[count].Equals("÷"))
+                    if (_calculation.OperatorList[count].Equals("×") || _calculation.OperatorList[count].Equals("÷"))
                     {
-                        _numbers[count] = Calculate(_numbers[count], _numbers[count + 1], _operatorList[count]);
-                        _numbers.RemoveAt(count + 1);
-                        _operatorList.RemoveAt(count);
+                        _calculation.NumberList[count] = Calculate(_calculation.NumberList[count], _calculation.NumberList[count + 1], _calculation.OperatorList[count]);
+                        _calculation.NumberList.RemoveAt(count + 1);
+                        _calculation.OperatorList.RemoveAt(count);
                     }
                     count++;
                 }
                 count = 0;
-                while (_operatorList.Count > count)
+                while (_calculation.OperatorList.Count > count)
                 {
-                    if (_operatorList[count].Equals("＋") || _operatorList[count].Equals("－"))
+                    if (_calculation.OperatorList[count].Equals("＋") || _calculation.OperatorList[count].Equals("－"))
                     {
-                        _numbers[count] = Calculate(_numbers[count], _numbers[count + 1], _operatorList[count]);
-                        _numbers.RemoveAt(count + 1);
-                        _operatorList.RemoveAt(count);
+                        _calculation.NumberList[count] = Calculate(_calculation.NumberList[count], _calculation.NumberList[count + 1], _calculation.OperatorList[count]);
+                        _calculation.NumberList.RemoveAt(count + 1);
+                        _calculation.OperatorList.RemoveAt(count);
                     }
                     count++;
                 }
                 
-                return _numbers[0];
+                return _calculation.NumberList[0];
             }
         }
 
-        private decimal Calculate(decimal num1, decimal num2, string a)
+        private decimal Calculate(decimal num1, decimal num2, string op)
         {
             decimal result = 0;
-            switch (a)
+            switch (op)
             {
                 case "＋":
                     result = num1 + num2;

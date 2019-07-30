@@ -21,11 +21,12 @@ namespace Calculator.Views
     /// </summary>
     public partial class MainWindow : Window
     {
-        public CalculationViewModel CVm = new CalculationViewModel();
+        private CalculationViewModel _cmv;
         public MainWindow()
         {
+            _cmv = new CalculationViewModel();
             InitializeComponent();
-            this.DataContext = CVm;
+            this.DataContext = _cmv;
         }
     }
 }

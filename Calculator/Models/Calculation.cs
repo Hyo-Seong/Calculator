@@ -10,16 +10,16 @@ namespace Calculator.Models
 {
     public class Calculation : BindableBase, ICloneable
     {
-        private List<int> _numList;
-        public List<int> NumList
+        private List<decimal> _numberList;
+        public List<decimal> NumberList
         {
             get
             {
-                return _numList;
+                return _numberList;
             }
             set
             {
-                SetProperty(ref _numList, value);
+                SetProperty(ref _numberList, value);
             }
         }
 
@@ -40,7 +40,7 @@ namespace Calculator.Models
         {
             return new Calculation
             {
-                NumList = this.NumList,
+                NumberList = this.NumberList,
                 OperatorList = this.OperatorList,
             };
         }
