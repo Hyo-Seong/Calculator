@@ -25,9 +25,17 @@
                     <RowDefinition Height="7*"/>
                     <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="0" TextAlignment="Right">
+                <TextBlock Grid.Row="0" Text="{Binding Expression}" TextAlignment="Right">
                     <TextBlock.FontSize>
-                        <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}">
+                        <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}" ConverterParameter="1.5">
+                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding>
+                    </TextBlock.FontSize>
+                </TextBlock>
+                <TextBlock Grid.Row="1" Text="{Binding Result}" TextAlignment="Right">
+                    <TextBlock.FontSize>
+                        <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}" ConverterParameter="1.5">
                             <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
                             <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
                         </MultiBinding>

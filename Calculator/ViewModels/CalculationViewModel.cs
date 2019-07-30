@@ -1,4 +1,5 @@
-﻿using Prism.Commands;
+﻿using Calculator.Models;
+using Prism.Commands;
 using Prism.Mvvm;
 using System;
 using System.Collections.Generic;
@@ -6,21 +7,22 @@ using System.Collections.ObjectModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Calculator.Util;
 
 namespace Calculator.ViewModels
 {
     public class CalculationViewModel : BindableBase
     {
         #region Variables
-        private string _expression;
+        private string _tempOperator;
+
+        private List<string> _operatorList = new List<string>();
+
+        private string _expression = "0";
         public string Expression
         {
             get
             {
-                if (string.IsNullOrEmpty(_expression))
-                {
-                    return "0";
-                }
                 return _expression;
             }
             set
@@ -29,7 +31,7 @@ namespace Calculator.ViewModels
             }
         }
 
-        private string _result;
+        private string _result = "0";
         public string Result
         {
             get
@@ -38,6 +40,10 @@ namespace Calculator.ViewModels
             }
             set
             {
+                if (value.Length != 1 && value[0] == '0')
+                {
+                    value = value.Substring(1);
+                }
                 SetProperty(ref _result, value);
             }
         }
@@ -52,10 +58,21 @@ namespace Calculator.ViewModels
         {
             ClickBtnCommand = new DelegateCommand<string>(Initaa);
         }
-
         public void Initaa(string content)
         {
-            Console.WriteLine(content);
+            if (content.IsInt())
+            {
+                if (!String.IsNullOrEmpty(_tempOperator))
+                {
+                    _operatorList.Add(_tempOperator);
+                    _tempOperator = string.Empty;
+                }
+                Result += content;
+            } 
+            else if(content.IsOperator()) 
+            {
+                _tempOperator = content;
+            }
         }
     }
 }

@@ -9,10 +9,10 @@
     <UserControl.Resources>
         <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter"/>
         <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
+            <Setter Property="Margin" Value="2"/>
             <Setter Property="FontSize">
                 <Setter.Value>
-                    <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}">
+                    <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}" ConverterParameter="2">
                         <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
                         <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
                     </MultiBinding>

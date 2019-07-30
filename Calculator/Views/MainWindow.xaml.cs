@@ -27,14 +27,5 @@ namespace Calculator.Views
             InitializeComponent();
             this.DataContext = CVm;
         }
-
-        private void Grid_MouseLeftButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            this.DragMove();
-        }
-
-        private void Button_Click(object sender, RoutedEventArgs e)
-        {
-        }
     }
 }
