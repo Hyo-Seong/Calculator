@@ -10,7 +10,7 @@ namespace Calculator.Models
 {
     public class Calculation : BindableBase, ICloneable
     {
-        private List<decimal> _numberList;
+        private List<decimal> _numberList = new List<decimal>();
         public List<decimal> NumberList
         {
             get
@@ -23,7 +23,7 @@ namespace Calculator.Models
             }
         }
 
-        private List<string> _operatorList;
+        private List<string> _operatorList = new List<string>();
         public List<string> OperatorList
         {
             get

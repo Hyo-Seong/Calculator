@@ -38,7 +38,7 @@
                     <RowDefinition Height="4*"/>
                     <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Expression}" Style="{StaticResource TbStyle}"/>
+                <TextBlock Grid.Row="0" Text="{Binding Description}" Style="{StaticResource TbStyle}"/>
                 <TextBlock Grid.Row="1" Text="{Binding Result}" Style="{StaticResource TbStyle}"/>
             </Grid>
             

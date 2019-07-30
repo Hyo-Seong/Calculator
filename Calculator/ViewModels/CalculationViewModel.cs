@@ -16,6 +16,8 @@ namespace Calculator.ViewModels
         #region Variables
         private const string ZERO = "0";
 
+        private bool _operatorFlag = true;
+
         private string _tempOperator;
 
         private ObservableCollection<Calculation> _calItems = new ObservableCollection<Calculation>();
@@ -83,23 +85,37 @@ namespace Calculator.ViewModels
                 if (_calculation.NumberList.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
                 {
                     _calculation.OperatorList.Add(_tempOperator);
+                    _operatorFlag = true;
                     _tempOperator = string.Empty;
                     Result = ZERO;
                 }
                 Result += content;
+                return;
             }
             // + - × ÷
             else if(content.IsOperator()) 
             {
-                if (string.IsNullOrEmpty(_tempOperator))
+                _tempOperator = content;
+                
+                if (_operatorFlag)
                 {
                     _calculation.NumberList.Add(Decimal.Parse(Result));
+                    Description += Result + content;
+                    _operatorFlag = false;
+                    return;
                 }
-                _tempOperator = content;
+                Description = Description.Remove(Description.Length - 1);
+                Description += content;
+
+                return;
             }
             
             switch(content){
                 case "＝":
+                    if (_operatorFlag)
+                    {
+                        Description += Result;
+                    }
                     _calculation.NumberList.Add(Decimal.Parse(Result));
                     Result = Calculate().ToString();
                     //CalItems.Add();
