@@ -5,7 +5,7 @@
         xmlns:converter="clr-namespace:Calculator.Converters"
         xmlns:ctrl="clr-namespace:Calculator.Controls"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="MainWindow" Height="400" Width="325" MinWidth="300" MinHeight="400">
+        Title="Calculator" Height="400" Width="325" MinWidth="300" MinHeight="400">
     <Window.Resources>
         <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter"/>
     </Window.Resources>

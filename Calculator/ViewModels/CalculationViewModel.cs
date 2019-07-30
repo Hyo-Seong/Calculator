@@ -14,12 +14,14 @@ namespace Calculator.ViewModels
     public class CalculationViewModel : BindableBase
     {
         #region Variables
+        private const string ZERO = "0";
+
         private string _tempOperator;
 
         private List<string> _operatorList = new List<string>();
         private List<decimal> _numbers = new List<decimal>();
 
-        private string _expression = "0";
+        private string _expression = ZERO;
         public string Expression
         {
             get
@@ -32,7 +34,7 @@ namespace Calculator.ViewModels
             }
         }
 
-        private string _result = "0";
+        private string _result = ZERO;
         public string Result
         {
             get
@@ -59,6 +61,7 @@ namespace Calculator.ViewModels
         {
             ClickBtnCommand = new DelegateCommand<string>(Initaa);
         }
+
         public void Initaa(string content)
         {
             if (content.IsInt())
@@ -67,7 +70,7 @@ namespace Calculator.ViewModels
                 {
                     _operatorList.Add(_tempOperator);
                     _tempOperator = string.Empty;
-                    Result = "0";
+                    Result = ZERO;
                 }
                 Result += content;
             } 
@@ -79,11 +82,32 @@ namespace Calculator.ViewModels
                 }
                 _tempOperator = content;
             }
-            else if (content.Equals("＝"))
-            {
-                _numbers.Add(Decimal.Parse(Result));
-                Calculate();
+            
+            switch(content){
+                case "＝":
+                    _numbers.Add(Decimal.Parse(Result));
+                    Result = Calculate().ToString();
+                    break;
+                case "←":
+                    if(Result.Length <=1){
+                        Result = ZERO;
+                        break;
+                    }
+                    Result = Result.Remove(Result.Length-1);
+                    break;
+                case "CE":
+                    Result = ZERO;
+                    break;
+                case "C":
+                    Result = ZERO;
+                    _numbers = new List<decimal>();
+                    _operatorList = new List<string>();
+                    break;
+                case ".":
+                    Result += content;
+                    break;
             }
+
         }
 
         private decimal Calculate()
@@ -117,7 +141,6 @@ namespace Calculator.ViewModels
                     count++;
                 }
                 
-                Console.WriteLine(_numbers.Count + " result : " + _numbers[0]);
                 return _numbers[0];
             }
         }
