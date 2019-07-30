@@ -16,7 +16,7 @@ namespace Calculator.Util
 
         public static bool IsOperator(this string s)
         {
-            if (s.Equals("＋") || s.Equals("-") || s.Equals("×") || s.Equals("÷"))
+            if (s.Equals("＋") || s.Equals("－") || s.Equals("×") || s.Equals("÷"))
             {
                 return true;
             }

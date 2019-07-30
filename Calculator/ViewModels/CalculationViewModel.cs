@@ -17,6 +17,7 @@ namespace Calculator.ViewModels
         private string _tempOperator;
 
         private List<string> _operatorList = new List<string>();
+        private List<decimal> _numbers = new List<decimal>();
 
         private string _expression = "0";
         public string Expression
@@ -62,17 +63,84 @@ namespace Calculator.ViewModels
         {
             if (content.IsInt())
             {
-                if (!String.IsNullOrEmpty(_tempOperator))
+                if (_numbers.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
                 {
                     _operatorList.Add(_tempOperator);
                     _tempOperator = string.Empty;
+                    Result = "0";
                 }
                 Result += content;
             } 
             else if(content.IsOperator()) 
             {
+                if (string.IsNullOrEmpty(_tempOperator))
+                {
+                    _numbers.Add(Decimal.Parse(Result));
+                }
                 _tempOperator = content;
             }
+            else if (content.Equals("＝"))
+            {
+                _numbers.Add(Decimal.Parse(Result));
+                Calculate();
+            }
+        }
+
+        private decimal Calculate()
+        {
+            if (_numbers.Count == 1)
+            {
+                return _numbers[0];
+            }
+            else
+            {
+                int count = 0;
+                while (_operatorList.Count > count)
+                {
+                    if (_operatorList[count].Equals("×") || _operatorList[count].Equals("÷"))
+                    {
+                        _numbers[count] = Calculate(_numbers[count], _numbers[count + 1], _operatorList[count]);
+                        _numbers.RemoveAt(count + 1);
+                        _operatorList.RemoveAt(count);
+                    }
+                    count++;
+                }
+                count = 0;
+                while (_operatorList.Count > count)
+                {
+                    if (_operatorList[count].Equals("＋") || _operatorList[count].Equals("－"))
+                    {
+                        _numbers[count] = Calculate(_numbers[count], _numbers[count + 1], _operatorList[count]);
+                        _numbers.RemoveAt(count + 1);
+                        _operatorList.RemoveAt(count);
+                    }
+                    count++;
+                }
+                
+                Console.WriteLine(_numbers.Count + " result : " + _numbers[0]);
+                return _numbers[0];
+            }
+        }
+
+        private decimal Calculate(decimal num1, decimal num2, string a)
+        {
+            decimal result = 0;
+            switch (a)
+            {
+                case "＋":
+                    result = num1 + num2;
+                    break;
+                case "－":
+                    result = num1 - num2;
+                    break;
+                case "×":
+                    result = num1 * num2;
+                    break;
+                case "÷":
+                    result = num1 / num2;
+                    break;
+            }
+            return result;
         }
     }
 }
