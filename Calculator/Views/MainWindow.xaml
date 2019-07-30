@@ -12,6 +12,18 @@
     </i:Interaction.Triggers>-->
     <Window.Resources>
         <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter"/>
+        <Style x:Key="ButtonStyle" TargetType="Button">
+            <Setter Property="Margin" Value="5"/>
+            <Setter Property="FontSize">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}">
+                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+            <Setter Property="BorderThickness" Value="0"/>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -40,7 +52,7 @@
                     <ColumnDefinition Width="*"/>
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
-                <Button x:Name="A" Grid.Row="0" Grid.Column="0" Content="CE" FontSize="{Binding Path=ActualHeight, RelativeSource={RelativeSource Self}, Converter={StaticResource HeightToFontSizeConverter}}"/>
+                <Button x:Name="A" Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonStyle}" Content="CE" />
             </Grid>
         </Grid>
     </Grid>

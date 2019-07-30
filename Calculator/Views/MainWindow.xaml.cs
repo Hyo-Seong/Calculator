@@ -24,7 +24,6 @@ namespace Calculator.Views
         public CalculationViewModel CVm = new CalculationViewModel();
         public MainWindow()
         {
-            
             InitializeComponent();
             this.DataContext = CVm;
         }
