@@ -9,19 +9,6 @@ namespace Calculator.Models
 {
     public class Calculation : BindableBase, ICloneable
     {
-        private string _a;
-        public string A
-        {
-            get 
-            {
-                return _a;
-            }
-            set
-            {
-                SetProperty(ref _a, value);
-            }
-        }
-
         private List<int> _numList;
         public List<int> NumList
         {
@@ -48,27 +35,12 @@ namespace Calculator.Models
             }
         }
 
-        private decimal _result;
-        public decimal Result
-        {
-            get
-            {
-                return _result;
-            }
-            set
-            {
-                SetProperty(ref _result, value);
-            }
-        }
-
         public object Clone()
         {
             return new Calculation
             {
-                A = this.A,
                 NumList = this.NumList,
                 OperatorList = this.OperatorList,
-                Result = this.Result
             };
         }
     }

@@ -3,27 +3,11 @@
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:prism="http://prismlibrary.com/"
         xmlns:converter="clr-namespace:Calculator.Converters"
+        xmlns:ctrl="clr-namespace:Calculator.Controls"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="MainWindow" Height="400" Width="325" MinWidth="300">
-    <!--<i:Interaction.Triggers>
-        <i:EventTrigger EventName="Loaded">
-            <i:InvokeCommandAction Command="{Binding LoadedCommand}" />
-        </i:EventTrigger>
-    </i:Interaction.Triggers>-->
+        Title="MainWindow" Height="400" Width="325" MinWidth="300" MinHeight="400">
     <Window.Resources>
         <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter"/>
-        <Style x:Key="ButtonStyle" TargetType="Button">
-            <Setter Property="Margin" Value="5"/>
-            <Setter Property="FontSize">
-                <Setter.Value>
-                    <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}">
-                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
-                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
-                    </MultiBinding>
-                </Setter.Value>
-            </Setter>
-            <Setter Property="BorderThickness" Value="0"/>
-        </Style>
     </Window.Resources>
 
     <Grid>
@@ -37,23 +21,24 @@
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
-                <Button Click="Button_Click"/>
-            </Grid>
-            <Grid Grid.Row="1">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
-                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="7*"/>
+                    <RowDefinition Height="3*"/>
                 </Grid.RowDefinitions>
-                <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                    <ColumnDefinition Width="*"/>
-                </Grid.ColumnDefinitions>
-                <Button x:Name="A" Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonStyle}" Content="CE" />
+                <TextBlock Grid.Row="0" Text="0" TextAlignment="Right">
+                    <TextBlock.FontSize>
+                        <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}">
+                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                        </MultiBinding>
+                    </TextBlock.FontSize>
+                </TextBlock>
             </Grid>
+            <ctrl:ButtonControl Grid.Row="1"/>
+        </Grid>
+        
+        <Grid Grid.Column="1">
+            <!-- insert log here -->
         </Grid>
     </Grid>
 </Window>

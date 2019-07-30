@@ -11,17 +11,51 @@ namespace Calculator.ViewModels
 {
     public class CalculationViewModel : BindableBase
     {
-        public DelegateCommand LoadedCommand { get; private set; }
-
-        public CalculationViewModel()
+        #region Variables
+        private string _expression;
+        public string Expression
         {
-            Initaa();
-            //LoadedCommand = new DelegateCommand(Initaa);
+            get
+            {
+                if (string.IsNullOrEmpty(_expression))
+                {
+                    return "0";
+                }
+                return _expression;
+            }
+            set
+            {
+                SetProperty(ref _expression, value);
+            }
         }
 
-        public void Initaa()
+        private string _result;
+        public string Result
         {
+            get
+            {
+                return _result;
+            }
+            set
+            {
+                SetProperty(ref _result, value);
+            }
+        }
 
+        #endregion
+
+        #region Commands
+        public DelegateCommand<string> ClickBtnCommand { get; private set; }
+
+        #endregion
+        public CalculationViewModel()
+        {
+            ClickBtnCommand = new DelegateCommand<string>(Initaa);
+        }
+
+        public void Initaa(string content)
+        {
+            Console.WriteLine(content);
         }
     }
 }
