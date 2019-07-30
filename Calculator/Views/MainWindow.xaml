@@ -8,6 +8,18 @@
         Title="Calculator" Height="400" Width="325" MinWidth="300" MinHeight="400">
     <Window.Resources>
         <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter"/>
+        
+        <Style x:Key="TbStyle" TargetType="TextBlock">
+            <Setter Property="TextAlignment" Value="Right"/>
+            <Setter Property="FontSize">
+                <Setter.Value>
+                    <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}" ConverterParameter="1.5">
+                        <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
+                        <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
+                    </MultiBinding>
+                </Setter.Value>
+            </Setter>
+        </Style>
     </Window.Resources>
 
     <Grid>
@@ -15,6 +27,7 @@
             <ColumnDefinition Width="7*"/>
             <ColumnDefinition Width="3*"/>
         </Grid.ColumnDefinitions>
+        
         <Grid Grid.Column="0">
             <Grid.RowDefinitions>
                 <RowDefinition Height="1*"/>
@@ -22,26 +35,13 @@
             </Grid.RowDefinitions>
             <Grid Grid.Row="0">
                 <Grid.RowDefinitions>
-                    <RowDefinition Height="7*"/>
-                    <RowDefinition Height="3*"/>
+                    <RowDefinition Height="4*"/>
+                    <RowDefinition Height="6*"/>
                 </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Expression}" TextAlignment="Right">
-                    <TextBlock.FontSize>
-                        <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}" ConverterParameter="1.5">
-                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
-                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
-                        </MultiBinding>
-                    </TextBlock.FontSize>
-                </TextBlock>
-                <TextBlock Grid.Row="1" Text="{Binding Result}" TextAlignment="Right">
-                    <TextBlock.FontSize>
-                        <MultiBinding Converter="{StaticResource HeightToFontSizeConverter}" ConverterParameter="1.5">
-                            <Binding Path="ActualHeight" RelativeSource="{RelativeSource Self}"/>
-                            <Binding Path="ActualWidth" RelativeSource="{RelativeSource Self}"/>
-                        </MultiBinding>
-                    </TextBlock.FontSize>
-                </TextBlock>
+                <TextBlock Grid.Row="0" Text="{Binding Expression}" Style="{StaticResource TbStyle}"/>
+                <TextBlock Grid.Row="1" Text="{Binding Result}" Style="{StaticResource TbStyle}"/>
             </Grid>
+            
             <ctrl:ButtonControl Grid.Row="1"/>
         </Grid>
         

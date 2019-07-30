@@ -18,15 +18,28 @@ namespace Calculator.ViewModels
 
         private string _tempOperator;
 
+        private ObservableCollection<Calculation> _calItems = new ObservableCollection<Calculation>();
+        public ObservableCollection<Calculation> CalItems
+        {
+            get
+            {
+                return _calItems;
+            }
+            set
+            {
+                SetProperty(ref _calItems, value);
+            }
+        }
+
         private List<string> _operatorList = new List<string>();
         private List<decimal> _numbers = new List<decimal>();
 
-        private string _expression = ZERO;
+        private string _expression = string.Empty;
         public string Expression
         {
             get
             {
-                return _expression;
+                return _expression;     
             }
             set
             {
@@ -87,6 +100,7 @@ namespace Calculator.ViewModels
                 case "＝":
                     _numbers.Add(Decimal.Parse(Result));
                     Result = Calculate().ToString();
+                    //CalItems.Add();
                     break;
                 case "←":
                     if(Result.Length <=1){

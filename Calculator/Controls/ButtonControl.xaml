@@ -58,8 +58,7 @@
         <Button Content="3" Grid.Row="3" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
         <Button Content="＋" Grid.Row="3" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
 
-        <Button Content="±" Grid.Row="4" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-        <Button Content="0" Grid.Row="4" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
+        <Button Content="0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource ButtonStyle}" />
         <Button Content="." Grid.Row="4" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
         <Button Content="＝" Grid.Row="4" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
     </Grid>
