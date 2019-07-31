@@ -73,7 +73,11 @@ namespace Calculator.Models
                 }
                 SetProperty(ref _result, value);
             }
-        }
+        }            
+        
+        public string TempOperator = string.Empty;
+        public bool OperatorFlag = true;
+        public bool EndCalFlag = true;
 
         public object Clone()
         {
@@ -82,6 +86,10 @@ namespace Calculator.Models
                 NumberList = this.NumberList,
                 OperatorList = this.OperatorList,
                 Description = this.Description,
+                Result = this.Result,
+                TempOperator = this.TempOperator,
+                OperatorFlag = this.OperatorFlag,
+                EndCalFlag = this.EndCalFlag,
             };
         }
     }

@@ -16,11 +16,6 @@ namespace Calculator.ViewModels
         #region Variables
         public const string ZERO = "0";
 
-        private bool _operatorFlag = true;
-        private bool _endCalFlag = true;
-
-        private string _tempOperator = string.Empty;
-
         private ObservableCollection<Calculation> _calLogItems = new ObservableCollection<Calculation>();
         public ObservableCollection<Calculation> CalLogItems
         {
@@ -64,89 +59,111 @@ namespace Calculator.ViewModels
             // 0 ~ 9
             if (content.IsInt())
             {
-                if (_endCalFlag)
+                if (Cal.EndCalFlag)
                 {
                     Cal.Result = ZERO;
                 }
-                if (Cal.NumberList.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
+                if (Cal.NumberList.Count != 0 && !String.IsNullOrEmpty(Cal.TempOperator))
                 {
-                    Cal.OperatorList.Add(_tempOperator);
-                    _operatorFlag = true;
-                    _tempOperator = string.Empty;
+                    Cal.OperatorList.Add(Cal.TempOperator);
+
+                    Cal.OperatorFlag = true;
+                    Cal.TempOperator = string.Empty;
                     Cal.Result = ZERO;
                 }
-                _endCalFlag = false;
+                Cal.EndCalFlag = false;
                 Cal.Result += content;
                 return;
             }
             // + - × ÷
             else if(content.IsOperator() && !Cal.Result.Equals("0")) 
             {
-                _tempOperator = content;
+                Cal.TempOperator = content;
                 
-                if (_operatorFlag)
+                if (Cal.OperatorFlag)
                 {
                     Cal.NumberList.Add(Decimal.Parse(Cal.Result));
                     Cal.Description += Cal.Result + content;
 
-                    _operatorFlag = false;
-                    _endCalFlag = true;
+                    Cal.OperatorFlag = false;
+                    Cal.EndCalFlag = true;
                     return;
                 }
                 Cal.Description = Cal.Description.Remove(Cal.Description.Length - 1);
-                Cal.Description += _tempOperator;
+                Cal.Description += Cal.TempOperator;
 
                 return;
             }
             // ＝ ← CE C .
             switch(content){
                 case "＝":
-                    if (!_endCalFlag)
-                    {
-                        Cal.Description += Cal.Result;
-                        Cal.NumberList.Add(Decimal.Parse(Cal.Result));
-                    }
-                    else
-                    {
-                        Cal.Description = Cal.Description.Remove(Cal.Description.Length - 1);
-                    }
-                    Cal.Result = Calculate().ToString();
-                    CalLogItems.Add(Cal);
-
-                    InitVariables(Cal.Result);
+                    ExcuteEqual();
                     break;
                 case "←":
-                    if (_endCalFlag)
-                    {
-                        break;
-                    }
-                    if(Cal.Result.Length <= 1){
-                        Cal.Result = ZERO;
-                        break;
-                    }
-                    Cal.Result = Cal.Result.Remove(Cal.Result.Length - 1);
+                    ExcuteRemove();
                     break;
                 case "CE":
-                    Cal.Result = ZERO;
+                    ExcuteCE();
                     break;
                 case "C":
-                    InitVariables();
+                    ExcuteC();
                     break;
                 case ".":
-                    if (!Cal.Result.Contains('.'))
-                    {
-                        Cal.Result += content;
-                    }
+                    ExcuteDot();
                     break;
             }
         }
 
-        private void InitVariables(string result = "")
+        private void ExcuteDot()
         {
-            Cal = new Calculation { Result = result };
-            _tempOperator = string.Empty;
-            _operatorFlag = true;
-            _endCalFlag = true;
+            if (!Cal.Result.Contains('.'))
+            {
+                Cal.Result += ".";
+            }
+        }
+
+        private void ExcuteC()
+        {
+            InitVariables(new Calculation());
+        }
+        private void ExcuteCE()
+        {
+            Cal.Result = ZERO;
+        }
+
+        private void ExcuteRemove()
+        {
+            if (Cal.EndCalFlag)
+            {
+                return;
+            }
+            if (Cal.Result.Length <= 1)
+            {
+                Cal.Result = ZERO;
+                return;
+            }
+            Cal.Result = Cal.Result.Remove(Cal.Result.Length - 1);
+        }
+
+        private void ExcuteEqual(){
+            if (!Cal.EndCalFlag)
+            {
+                Cal.Description += Cal.Result;
+                Cal.NumberList.Add(Decimal.Parse(Cal.Result));
+            }
+            else
+            {
+                Cal.Description = Cal.Description.Remove(Cal.Description.Length - 1);
+            }
+            Cal.Result = Calculate().ToString();
+            CalLogItems.Add((Calculation)Cal.Clone());
+
+            InitVariables(new Calculation { Result = Cal.Result });
+        }
+
+        private void InitVariables(Calculation cal)
+        {
+            Cal = cal;
         }
 
         private decimal Calculate()
@@ -158,15 +175,15 @@ namespace Calculator.ViewModels
             }
             else
             {
-                A("×", "÷");
-                A("＋", "－");
+                CalByPriority("×", "÷");
+                CalByPriority("＋", "－");
                 
                 calResult = Cal.NumberList[0];
             }
             return Math.Round(calResult, 8);
         }
 
-        private void A(string str1, string str2)
+        private void CalByPriority(string str1, string str2)
         {
             int count = 0;
             while (Cal.OperatorList.Count > count)
