@@ -16,7 +16,12 @@ namespace Calculator.Converters
             double height = System.Convert.ToDouble(values[0]);
             double width = System.Convert.ToDouble(values[1]);
             double denominator = System.Convert.ToDouble(parameter);
-            return height >= width ? width / denominator : height / denominator;
+            double result = height >= width ? width / denominator : height / denominator;
+            if (result < 15)
+            {
+                return result*1.1;
+            }
+            return result;
         }
 
         public object[] ConvertBack(object value, Type[] targetTypes, object parameter, CultureInfo culture)

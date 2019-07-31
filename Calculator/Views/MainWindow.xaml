@@ -24,7 +24,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="3*"/>
+            <ColumnDefinition Width="100"/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
@@ -32,20 +32,26 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <Grid Grid.Row="0">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="4*"/>
-                    <RowDefinition Height="6*"/>
-                </Grid.RowDefinitions>
-                <TextBlock Grid.Row="0" Text="{Binding Cal.Description}" Style="{StaticResource TbStyle}"/>
-                <TextBlock Grid.Row="1" Text="{Binding Cal.Result}" Style="{StaticResource TbStyle}"/>
-            </Grid>
+            <ctrl:CalLogControl DataContext="{Binding Cal}"/>
             
             <ctrl:ButtonControl Grid.Row="1"/>
         </Grid>
         
-        <Grid Grid.Column="1">
-            <!-- insert log here -->
+        <Grid Background="Gray" Grid.Column="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="30"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Text="LOG" TextAlignment="Center" FontSize="20"/>
+            <ListView Background="Transparent" Grid.Row="1" ItemsSource="{Binding CalLogItems}">
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Width="90" Height="30">
+                            <ctrl:CalLogControl FontSize="15"/>
+                        </Grid>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
         </Grid>
     </Grid>
 </Window>

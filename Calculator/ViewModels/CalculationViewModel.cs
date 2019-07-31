@@ -68,9 +68,9 @@ namespace Calculator.ViewModels
                 {
                     Cal.Result = ZERO;
                 }
-                if (_cal.NumberList.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
+                if (Cal.NumberList.Count != 0 && !String.IsNullOrEmpty(_tempOperator))
                 {
-                    _cal.OperatorList.Add(_tempOperator);
+                    Cal.OperatorList.Add(_tempOperator);
                     _operatorFlag = true;
                     _tempOperator = string.Empty;
                     Cal.Result = ZERO;
@@ -86,7 +86,7 @@ namespace Calculator.ViewModels
                 
                 if (_operatorFlag)
                 {
-                    _cal.NumberList.Add(Decimal.Parse(Cal.Result));
+                    Cal.NumberList.Add(Decimal.Parse(Cal.Result));
                     Cal.Description += Cal.Result + content;
 
                     _operatorFlag = false;
@@ -103,12 +103,17 @@ namespace Calculator.ViewModels
                 case "＝":
                     if (!_endCalFlag)
                     {
-                        _cal.NumberList.Add(Decimal.Parse(Cal.Result));
+                        Cal.Description += Cal.Result;
+                        Cal.NumberList.Add(Decimal.Parse(Cal.Result));
                     }
-                    
-                    CalLogItems.Add(_cal);
+                    else
+                    {
+                        Cal.Description = Cal.Description.Remove(Cal.Description.Length - 1);
+                    }
+                    Cal.Result = Calculate().ToString();
+                    CalLogItems.Add(Cal);
 
-                    InitVariables(Calculate().ToString());
+                    InitVariables(Cal.Result);
                     break;
                 case "←":
                     if (_endCalFlag)
@@ -136,12 +141,9 @@ namespace Calculator.ViewModels
             }
         }
 
-        private void InitVariables(string result = ZERO)
+        private void InitVariables(string result = "")
         {
-            Cal = new Calculation
-            {
-                Result = result
-            };
+            Cal = new Calculation { Result = result };
             _tempOperator = string.Empty;
             _operatorFlag = true;
             _endCalFlag = true;
@@ -150,16 +152,16 @@ namespace Calculator.ViewModels
         private decimal Calculate()
         {
             decimal calResult = 0;
-            if (_cal.NumberList.Count == 1)
+            if (Cal.NumberList.Count == 1)
             {
-                calResult = _cal.NumberList[0];
+                calResult = Cal.NumberList[0];
             }
             else
             {
                 A("×", "÷");
                 A("＋", "－");
                 
-                calResult = _cal.NumberList[0];
+                calResult = Cal.NumberList[0];
             }
             return Math.Round(calResult, 8);
         }
@@ -167,13 +169,13 @@ namespace Calculator.ViewModels
         private void A(string str1, string str2)
         {
             int count = 0;
-            while (_cal.OperatorList.Count > count)
+            while (Cal.OperatorList.Count > count)
             {
-                if (_cal.OperatorList[count].Equals(str1) || _cal.OperatorList[count].Equals(str2))
+                if (Cal.OperatorList[count].Equals(str1) || Cal.OperatorList[count].Equals(str2))
                 {
-                    _cal.NumberList[count] = Calculate(_cal.NumberList[count], _cal.NumberList[count + 1], _cal.OperatorList[count]);
-                    _cal.NumberList.RemoveAt(count + 1);
-                    _cal.OperatorList.RemoveAt(count);
+                    Cal.NumberList[count] = Calculate(Cal.NumberList[count], Cal.NumberList[count + 1], Cal.OperatorList[count]);
+                    Cal.NumberList.RemoveAt(count + 1);
+                    Cal.OperatorList.RemoveAt(count);
                 }
                 count++;
             }
