@@ -43,7 +43,7 @@
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
             <TextBlock Grid.Row="0" Text="LOG" TextAlignment="Center" FontSize="20"/>
-            <ListView Background="Transparent" Grid.Row="1" ItemsSource="{Binding CalLogItems}">
+            <ListView BorderThickness="0" Background="Transparent" Grid.Row="1" ItemsSource="{Binding CalLogItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="90" Height="30">
