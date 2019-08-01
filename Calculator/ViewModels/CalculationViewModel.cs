@@ -155,6 +155,9 @@ namespace Calculator.ViewModels
             {
                 Cal.Description = Cal.Description.Remove(Cal.Description.Length - 1);
             }
+
+            Cal.Result += "=";
+
             Cal.Result = Calculate().ToString();
             CalLogItems.Add((Calculation)Cal.Clone());
 

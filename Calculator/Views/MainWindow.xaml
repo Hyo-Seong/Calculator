@@ -4,7 +4,7 @@
         xmlns:converter="clr-namespace:Calculator.Converters"
         xmlns:ctrl="clr-namespace:Calculator.Controls"
         xmlns:i="clr-namespace:System.Windows.Interactivity;assembly=System.Windows.Interactivity"
-        Title="Calculator" Height="400" Width="325" MinWidth="300" MinHeight="400" Background="LightGray">
+        Title="Calculator" Height="400" Width="325" MinWidth="350" MinHeight="400" Background="LightGray">
     <Window.Resources>
         <converter:HeightToFontSizeConverter x:Key="HeightToFontSizeConverter"/>
         
@@ -24,7 +24,7 @@
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="7*"/>
-            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="150"/>
         </Grid.ColumnDefinitions>
         
         <Grid Grid.Column="0">
