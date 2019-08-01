@@ -19,9 +19,9 @@ namespace Calculator.Controls
     /// <summary>
     /// Interaction logic for UserControl1.xaml
     /// </summary>
-    public partial class CalLogControl : UserControl
+    public partial class CalHistoryControl : UserControl
     {
-        public CalLogControl()
+        public CalHistoryControl()
         {
             InitializeComponent();
         }

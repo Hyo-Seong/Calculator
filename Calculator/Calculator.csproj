@@ -94,7 +94,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Controls\CalLogControl.xaml">
+    <Page Include="Controls\CalHistoryControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -109,8 +109,8 @@
     <Compile Include="Controls\ButtonControl.xaml.cs">
       <DependentUpon>ButtonControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Controls\CalLogControl.xaml.cs">
-      <DependentUpon>CalLogControl.xaml</DependentUpon>
+    <Compile Include="Controls\CalHistoryControl.xaml.cs">
+      <DependentUpon>CalHistoryControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Converters\HeightToFontSizeConverter.cs" />
     <Compile Include="Models\Calculation.cs" />

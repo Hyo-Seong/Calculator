@@ -32,22 +32,30 @@
                 <RowDefinition Height="1*"/>
                 <RowDefinition Height="4*"/>
             </Grid.RowDefinitions>
-            <ctrl:CalLogControl DataContext="{Binding Cal}"/>
+            <ctrl:CalHistoryControl DataContext="{Binding Cal}"/>
             
             <ctrl:ButtonControl Grid.Row="1"/>
         </Grid>
         
         <Grid Grid.Column="1">
             <Grid.RowDefinitions>
-                <RowDefinition Height="30"/>
+                <RowDefinition Height="50"/>
                 <RowDefinition Height="*"/>
             </Grid.RowDefinitions>
-            <TextBlock Grid.Row="0" Text="LOG" TextAlignment="Center" FontSize="20"/>
+            <StackPanel Grid.Row="0">
+                <TextBlock x:Name="History" Text="History" HorizontalAlignment="Left" Margin="10,5,0,0" VerticalAlignment="Center" TextAlignment="Center" FontSize="16" />
+
+                <Separator Background="#1684da" Width="{Binding Path=ActualWidth, ElementName=History}" Margin="{Binding Margin, ElementName=History}" VerticalAlignment="Top" HorizontalAlignment="Left">
+                    <Separator.RenderTransform>
+                        <ScaleTransform ScaleY="3"/>
+                    </Separator.RenderTransform>
+                </Separator>
+            </StackPanel>
             <ListView BorderThickness="0" Background="Transparent" Grid.Row="1" ItemsSource="{Binding CalLogItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
                         <Grid Width="90" Height="30">
-                            <ctrl:CalLogControl FontSize="15"/>
+                            <ctrl:CalHistoryControl FontSize="15"/>
                         </Grid>
                     </DataTemplate>
                 </ListView.ItemTemplate>
