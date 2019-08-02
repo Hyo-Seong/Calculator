@@ -197,7 +197,10 @@ namespace Calculator.ViewModels
                     Cal.NumberList.RemoveAt(count + 1);
                     Cal.OperatorList.RemoveAt(count);
                 }
-                count++;
+                else
+                {
+                    count++;
+                }
             }
         }
 
