@@ -54,7 +54,7 @@
             <ListView BorderThickness="0" Background="Transparent" Grid.Row="1" ItemsSource="{Binding CalLogItems}">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <Grid Width="145" Height="30">
+                        <Grid Width="140" Height="30">
                             <ctrl:CalHistoryControl />
                         </Grid>
                     </DataTemplate>

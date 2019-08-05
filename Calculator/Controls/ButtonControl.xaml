@@ -31,6 +31,10 @@
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
+
+        </Style>
+
+        <Style x:Key="OtherButton" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="BorderThickness" Value="1"/>
@@ -42,6 +46,7 @@
 
         <Style x:Key="NumberButton" BasedOn="{StaticResource ButtonStyle}" TargetType="Button">
             <Setter Property="FontWeight" Value="Bold"/>
+            <Setter Property="Background" Value="#f1f1f1"/>
             <Style.Triggers>
                 <Trigger Property="IsMouseOver" Value="True">
                     <Setter Property="BorderThickness" Value="1"/>
@@ -66,28 +71,28 @@
             <ColumnDefinition Width="*"/>
             <ColumnDefinition Width="*"/>
         </Grid.ColumnDefinitions>
-        <Button x:Name="btnCE" Content="CE" Grid.Row="0" Grid.Column="0" Style="{StaticResource ButtonStyle}" />
-        <Button x:Name="btnC" Content="C" Grid.Row="0" Grid.Column="1" Style="{StaticResource ButtonStyle}" />
-        <Button x:Name="btnDelete" Content="←" Grid.Row="0" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
-        <Button x:Name="btnMultiple" Content="÷" Grid.Row="0" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Button x:Name="btnCE" Content="CE" Grid.Row="0" Grid.Column="0" Style="{StaticResource OtherButton}" />
+        <Button x:Name="btnC" Content="C" Grid.Row="0" Grid.Column="1" Style="{StaticResource OtherButton}" />
+        <Button x:Name="btnDelete" Content="←" Grid.Row="0" Grid.Column="2" Style="{StaticResource OtherButton}" />
+        <Button x:Name="btnMultiple" Content="÷" Grid.Row="0" Grid.Column="3" Style="{StaticResource OtherButton}" />
 
         <Button Content="7" Grid.Row="1" Grid.Column="0" Style="{StaticResource NumberButton}" />
         <Button Content="8" Grid.Row="1" Grid.Column="1" Style="{StaticResource NumberButton}" />
         <Button Content="9" Grid.Row="1" Grid.Column="2" Style="{StaticResource NumberButton}" />
-        <Button Content="×" Grid.Row="1" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Button Content="×" Grid.Row="1" Grid.Column="3" Style="{StaticResource OtherButton}" />
 
         <Button Content="4" Grid.Row="2" Grid.Column="0" Style="{StaticResource NumberButton}" />
         <Button Content="5" Grid.Row="2" Grid.Column="1" Style="{StaticResource NumberButton}" />
         <Button Content="6" Grid.Row="2" Grid.Column="2" Style="{StaticResource NumberButton}" />
-        <Button Content="－" Grid.Row="2" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Button Content="－" Grid.Row="2" Grid.Column="3" Style="{StaticResource OtherButton}" />
 
         <Button Content="1" Grid.Row="3" Grid.Column="0" Style="{StaticResource NumberButton}" />
         <Button Content="2" Grid.Row="3" Grid.Column="1" Style="{StaticResource NumberButton}" />
         <Button Content="3" Grid.Row="3" Grid.Column="2" Style="{StaticResource NumberButton}" />
-        <Button Content="＋" Grid.Row="3" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Button Content="＋" Grid.Row="3" Grid.Column="3" Style="{StaticResource OtherButton}" />
 
         <Button Content="0" Grid.Row="4" Grid.Column="0" Grid.ColumnSpan="2" Style="{StaticResource NumberButton}" />
-        <Button Content="." Grid.Row="4" Grid.Column="2" Style="{StaticResource ButtonStyle}" />
-        <Button Content="＝" Grid.Row="4" Grid.Column="3" Style="{StaticResource ButtonStyle}" />
+        <Button Content="." Grid.Row="4" Grid.Column="2" Style="{StaticResource OtherButton}" />
+        <Button Content="＝" Grid.Row="4" Grid.Column="3" Style="{StaticResource OtherButton}" />
     </Grid>
 </UserControl>
